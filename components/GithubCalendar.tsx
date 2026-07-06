@@ -35,24 +35,26 @@ export default async function GithubCalendar({ username }: { username: string })
   for (let i = 0; i < days.length; i += 7) {
     weeks.push(days.slice(i, i + 7));
   }
-  const recentWeeks = weeks.slice(-26);
   const total = days.reduce((sum, d) => sum + d.count, 0);
 
   return (
-    <GlowCard className="overflow-x-auto">
+    <GlowCard>
       <div className="flex items-center justify-between">
         <p className="font-mono text-xs text-white/40">
           {total.toLocaleString()} contributions in the last year
         </p>
       </div>
-      <div className="mt-4 flex gap-1">
-        {recentWeeks.map((week, wi) => (
+      <div
+        className="mt-4 grid w-full gap-1"
+        style={{ gridTemplateColumns: `repeat(${weeks.length}, minmax(0, 1fr))` }}
+      >
+        {weeks.map((week, wi) => (
           <div key={wi} className="flex flex-col gap-1">
             {week.map((day) => (
               <div
                 key={day.date}
                 title={`${day.count} contributions on ${day.date}`}
-                className={`h-2.5 w-2.5 rounded-[3px] ${levelColor[day.level]}`}
+                className={`aspect-square w-full rounded-[3px] ${levelColor[day.level]}`}
               />
             ))}
           </div>

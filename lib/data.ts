@@ -3,7 +3,6 @@ export const profile = {
   fullName: "Jay Girish Patel",
   role: "Data Analyst",
   location: "Thane, Maharashtra",
-  timezone: "IST (UTC+5:30)",
   phone: "+91 98920 07108",
   email: "gjaypatel15@gmail.com",
   github: "https://github.com/Jay-patel15",
@@ -11,6 +10,8 @@ export const profile = {
   linkedin: "https://linkedin.com/in/jay-patel15",
   tagline: "Data Analyst specializing in Python, SQL, Power BI, and Machine Learning.",
   available: true,
+  // TODO: replace with the real shareable Google Drive resume link.
+  resumeUrl: "https://drive.google.com/file/d/YOUR_RESUME_FILE_ID/view",
 };
 
 export const skills = [
@@ -109,8 +110,18 @@ export const education = [
   },
 ];
 
+// TODO: replace each url with the real Credly badge or Drive share link.
 export const certifications = [
-  "Python Programming for Absolute Beginners – SQL in Python (Udemy)",
-  "Cybersecurity Fundamentals (IBM)",
-  "Accenture North America – Data Analytics and Visualization Job Simulation",
+  {
+    name: "Python Programming for Absolute Beginners – SQL in Python (Udemy)",
+    url: "https://drive.google.com/",
+  },
+  {
+    name: "Cybersecurity Fundamentals (IBM)",
+    url: "https://www.credly.com/",
+  },
+  {
+    name: "Accenture North America – Data Analytics and Visualization Job Simulation",
+    url: "https://drive.google.com/",
+  },
 ];

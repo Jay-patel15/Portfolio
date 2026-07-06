@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Download, Github, Linkedin, Mail } from "lucide-react";
 import { profile } from "@/lib/data";
 
 const links = [
@@ -77,6 +77,14 @@ export default function Navbar() {
             className="text-white/60 transition-colors hover:text-signal"
           >
             <Mail size={18} />
+          </a>
+          <a
+            href={profile.resumeUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="hidden items-center gap-1.5 rounded-full border border-white/10 px-3.5 py-1.5 text-xs font-medium text-white/70 transition-colors hover:border-signal/40 hover:text-white sm:inline-flex"
+          >
+            <Download size={13} /> Resume
           </a>
         </div>
       </nav>

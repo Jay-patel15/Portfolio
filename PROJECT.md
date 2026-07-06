@@ -53,6 +53,27 @@ falls back to placeholder values so `next build` doesn't crash on missing
 env vars. The contact form will silently fail against the placeholder
 project if you don't set real credentials.
 
+### "Port 3000 is in use, trying 3001 instead."
+
+Not an error. Next.js dev server binds to 3000 by default; if something
+else already holds that port (most often a previous `npm run dev` you
+forgot to stop, or a leftover process from a killed terminal), Next just
+moves to the next free port and tells you which one it picked — check the
+`- Local:` line it prints. Open that URL instead.
+
+To free port 3000 so it's always the one used, find and kill whatever's
+holding it:
+
+```bash
+netstat -ano | findstr :3000       # note the PID in the last column
+taskkill /PID <pid> /F             # or: Ctrl+C in whichever terminal owns it
+```
+
+`Terminate batch job (Y/N)?` after `Ctrl+C` is a normal Windows `cmd.exe`
+prompt for stopping a running npm script — answer `y` (or `n` to keep it
+running in that terminal, which is how you can end up with a stray dev
+server still bound to 3000 later).
+
 ## File-by-file map
 
 ### `app/` — Next.js App Router shell
