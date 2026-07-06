@@ -34,11 +34,11 @@ export default function Experience() {
                 </span>
 
                 <GlowCard>
-                  <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <h3 className="font-display text-xl font-semibold text-white">
                       {job.role}
                     </h3>
-                    <div className="flex flex-col items-end gap-2">
+                    <div className="flex items-center gap-3 sm:flex-col sm:items-end sm:gap-2">
                       <span className="font-mono text-xs text-signal">{job.period}</span>
                       {job.experienceLetterUrl && (
                         <a

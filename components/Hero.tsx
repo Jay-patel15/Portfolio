@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { ArrowDown, Download, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import MagneticButton from "./ui/MagneticButton";
 import { profile } from "@/lib/data";
 
@@ -85,6 +85,14 @@ export default function Hero() {
           </MagneticButton>
           <MagneticButton href="#contact" variant="ghost">
             Get in Touch
+          </MagneticButton>
+          <MagneticButton
+            href={profile.resumeUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            variant="ghost"
+          >
+            <Download size={16} /> Resume
           </MagneticButton>
         </motion.div>
 

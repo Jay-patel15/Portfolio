@@ -30,11 +30,11 @@ export default function Education() {
                 </span>
 
                 <GlowCard>
-                  <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <h3 className="font-display text-lg font-semibold text-white">
                       {ed.degree}
                     </h3>
-                    <div className="flex flex-col items-end gap-2">
+                    <div className="flex items-center gap-3 sm:flex-col sm:items-end sm:gap-2">
                       <span className="font-mono text-xs text-signal">{ed.period}</span>
                       {ed.marksheetUrl && (
                         <a

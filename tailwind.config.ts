@@ -47,11 +47,16 @@ const config: Config = {
       animation: {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         scanline: "scanline 8s linear infinite",
+        "nav-in": "nav-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
       },
       keyframes: {
         scanline: {
           "0%": { transform: "translateY(-100%)" },
           "100%": { transform: "translateY(100%)" },
+        },
+        "nav-in": {
+          "0%": { opacity: "0", transform: "translateY(-40px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
     },
