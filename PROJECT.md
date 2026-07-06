@@ -158,10 +158,24 @@ section of the page, in the order they're rendered in `app/page.tsx`:
   sections in `page.tsx` you must reorder `links` here too or the nav
   will scroll out of sequence. `github`/`education` have no nav entry by
   design (reachable by scrolling, not from the header). Social icons link
-  out via `lib/data.ts`'s `profile`, plus a "Resume" pill (`Download` icon
-  + text, hidden below `sm:`) that links to `profile.resumeUrl` — this is
-  the *only* place the resume download link lives; it is not duplicated
-  in Education/Certifications.
+  out via `lib/data.ts`'s `profile`, plus a "Resume" pill (`Download`
+  icon, always visible) that links to `profile.resumeUrl` — it's part of
+  the always-visible icon row, not tucked inside the hamburger dropdown,
+  so it's one tap away at every breakpoint. Below `sm:` the pill shrinks
+  to icon-only (`<span className="hidden sm:inline">Resume</span>`) to
+  save space next to the GitHub/LinkedIn/Mail icons; from `sm:` up it
+  shows the "Resume" label too. The header's entrance animation is a pure
+  CSS keyframe (`animate-nav-in`, defined in `tailwind.config.ts`), not
+  Framer Motion — a JS-driven `initial`/`animate` on the header only
+  starts once React hydrates, which on a slow load made the header sit
+  static then "snap" through its animation; a CSS `@keyframes` plays at
+  first paint regardless of hydration timing, so this was switched
+  deliberately — don't convert it back to a `motion.header` for
+  consistency with other sections. Below `md:`, only the section nav
+  links collapse into a hamburger (`Menu`/`X` from lucide, `menuOpen`
+  state) that expands an `AnimatePresence` dropdown panel — the Resume
+  link is intentionally not duplicated in that dropdown since it's
+  already reachable without opening the menu.
 - **`Hero.tsx`** (client) — the big headline. Uses Framer Motion
   `variants`/`staggerChildren` to animate each word of "Jay Patel." in on
   load, with "Patel." colored in the accent (signal) color. The
@@ -193,11 +207,19 @@ section of the page, in the order they're rendered in `app/page.tsx`:
   (`github-contributions-api.jogruber.de`, a third-party wrapper around
   GitHub's contribution graph, which has no public official REST endpoint).
   Renders **every** week returned by the API (no slicing) in a CSS grid
-  (`grid-template-columns: repeat(weeks.length, minmax(0,1fr))`) with
-  `aspect-square w-full` cells, so the heatmap always stretches to fill
-  its container width regardless of how many weeks of history exist.
-  Returns `null` (renders nothing) if the fetch fails, so a network
-  hiccup never breaks the page layout.
+  (`grid-template-columns: repeat(weeks.length, minmax(10px,1fr))`) with
+  `aspect-square w-full` cells, so the heatmap still stretches to fill the
+  full container width on desktop/tablet. The grid sits inside an
+  `overflow-x-auto` wrapper with an explicit `minWidth` (`weeks.length *
+  11px`) — on screens wide enough for that minimum, `minmax(10px, 1fr)`
+  fills the columns evenly exactly as before; on narrow mobile screens,
+  once the container can no longer fit every column at ≥10px, the grid
+  overflows its wrapper and scrolls horizontally instead of continuing to
+  shrink cells into illegible sub-pixel dots. This preserves the original
+  "always full width" behavior everywhere it still fits, and only trades
+  it for horizontal scroll where fitting all ~52 weeks would otherwise
+  make the heatmap unreadable. Returns `null` (renders nothing) if the
+  fetch fails, so a network hiccup never breaks the page layout.
 - **`Skills.tsx`** (client) — bento-grid layout driven by `skills` in
   `lib/data.ts`, where each skill group has a `span` string (e.g.
   `"md:col-span-2 md:row-span-2"`) controlling its grid footprint. **To
@@ -209,15 +231,24 @@ section of the page, in the order they're rendered in `app/page.tsx`:
   role is ongoing, or a Drive share link once it's completed. The card
   only renders the "Experience Letter" button when that field is
   non-null, so finishing a role is just: set the real Drive URL on that
-  entry.
+  entry. The card header (`role` + period/button column) is
+  `flex-col` (stacked, title above a left-aligned period+button row) by
+  default and switches to `sm:flex-row sm:justify-between` (title left,
+  period above button in a right-aligned column) at `sm:` and up — plain
+  `flex-wrap justify-between` was tried first, but when the period/button
+  column wrapped onto its own line on narrow screens, a lone flex item on
+  a `justify-between` line collapses to the *start* of that line instead
+  of staying right-aligned, which is what made the button land between
+  the period and company name instead of cleanly under the duration.
 - **`Education.tsx`** (client) — mirrors `Experience.tsx`'s pattern:
   `education` entries render as a vertical timeline (gradient line down
   the left edge, one `GlowCard` per entry) so new schooling entries can
   just be appended to `lib/data.ts` and will slot into the timeline
   automatically. Each entry also has a `marksheetUrl` field — `null` hides
   the button, a Drive link shows a "View Result" button beneath the
-  passing-year label (same right-aligned column layout as the
-  "View Letter" button in `Experience.tsx`). Below the timeline, a
+  passing-year label (same responsive stacked/row header layout, and the
+  same reasoning, as the "View Letter" button in `Experience.tsx`). Below
+  the timeline, a
   separate `GlowCard` lists `certifications` as clickable links
   (`cert.url`, opens in a new tab) — each has an `ExternalLink` icon and an
   underline that highlights signal-
