@@ -6,9 +6,10 @@ import { Download, Github, Linkedin, Mail } from "lucide-react";
 import { profile } from "@/lib/data";
 
 const links = [
+  { label: "About", href: "#about" },
   { label: "Work", href: "#projects" },
-  { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
+  { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
 

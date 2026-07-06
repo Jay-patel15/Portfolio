@@ -11,7 +11,7 @@ export default async function GitHubShowcase() {
     <section id="github" className="px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
-          index="02"
+          index="03"
           title="Live from GitHub"
           description="Repositories and activity pulled directly from my GitHub profile at request time."
         />

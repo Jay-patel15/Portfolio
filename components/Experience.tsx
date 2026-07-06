@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { FileText } from "lucide-react";
 import { experience } from "@/lib/data";
 import SectionHeading from "./ui/SectionHeading";
 import GlowCard from "./ui/GlowCard";
@@ -10,7 +11,7 @@ export default function Experience() {
     <section id="experience" className="px-6 py-28">
       <div className="mx-auto max-w-4xl">
         <SectionHeading
-          index="04"
+          index="05"
           title="Experience"
           description="Hands-on QA and data-validation work shipping directly into an AI product."
         />
@@ -33,11 +34,23 @@ export default function Experience() {
                 </span>
 
                 <GlowCard>
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <div className="flex flex-wrap items-start justify-between gap-2">
                     <h3 className="font-display text-xl font-semibold text-white">
                       {job.role}
                     </h3>
-                    <span className="font-mono text-xs text-signal">{job.period}</span>
+                    <div className="flex flex-col items-end gap-2">
+                      <span className="font-mono text-xs text-signal">{job.period}</span>
+                      {job.experienceLetterUrl && (
+                        <a
+                          href={job.experienceLetterUrl}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-medium text-white/70 transition-colors hover:border-signal/40 hover:text-white"
+                        >
+                          <FileText size={12} /> View Letter
+                        </a>
+                      )}
+                    </div>
                   </div>
                   <p className="mt-1 text-sm font-medium text-white/50">{job.company}</p>
 

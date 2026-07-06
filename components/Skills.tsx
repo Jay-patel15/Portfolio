@@ -10,7 +10,7 @@ export default function Skills() {
     <section id="skills" className="px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
-          index="03"
+          index="04"
           title="Skills & Toolkit"
           description="The languages, frameworks, and tools I use to turn raw data into decisions."
         />

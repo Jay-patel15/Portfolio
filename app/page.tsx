@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import About from "@/components/About";
 import Projects from "@/components/Projects";
 import GitHubShowcase from "@/components/GitHubShowcase";
 import Skills from "@/components/Skills";
@@ -15,6 +16,7 @@ export default function Home() {
       <Navbar />
       <main id="main-content">
         <Hero />
+        <About />
         <Projects />
         <GitHubShowcase />
         <Skills />

@@ -46,7 +46,7 @@ export default function Contact() {
     <section id="contact" className="px-6 py-28">
       <div className="mx-auto max-w-2xl">
         <SectionHeading
-          index="06"
+          index="07"
           title="Let's talk data"
           description="Have a role, a dataset, or a problem worth analyzing? Send a message."
         />
