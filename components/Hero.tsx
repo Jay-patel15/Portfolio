@@ -5,7 +5,7 @@ import { ArrowDown, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import MagneticButton from "./ui/MagneticButton";
 import { profile } from "@/lib/data";
 
-const headline = ["Jay", "Girish", "Patel."];
+const headline = ["Jay", "Patel."];
 
 const container = {
   hidden: {},
@@ -43,7 +43,7 @@ export default function Hero() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
           </span>
-          Available for work — {profile.timezone}
+          Available for work
         </motion.div>
 
         <motion.h1
@@ -51,10 +51,10 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           className="font-display text-hero-sm font-bold text-white sm:text-hero-md lg:text-hero-lg"
-          aria-label={profile.fullName}
+          aria-label={profile.name}
         >
           {headline.map((w, i) => (
-            <span key={w + i} className="block overflow-hidden">
+            <span key={w + i} className="block overflow-hidden pb-[0.12em]">
               <motion.span
                 variants={word}
                 className={`inline-block ${w === "Patel." ? "text-signal" : ""}`}

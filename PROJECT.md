@@ -53,6 +53,50 @@ falls back to placeholder values so `next build` doesn't crash on missing
 env vars. The contact form will silently fail against the placeholder
 project if you don't set real credentials.
 
+### "Port 3000 is in use, trying 3001 instead."
+
+Not an error. Next.js dev server binds to 3000 by default; if something
+else already holds that port (most often a previous `npm run dev` you
+forgot to stop, or a leftover process from a killed terminal), Next just
+moves to the next free port and tells you which one it picked — check the
+`- Local:` line it prints. Open that URL instead.
+
+To free port 3000 so it's always the one used, find and kill whatever's
+holding it:
+
+```bash
+netstat -ano | findstr :3000       # note the PID in the last column
+taskkill /PID <pid> /F             # or: Ctrl+C in whichever terminal owns it
+```
+
+`Terminate batch job (Y/N)?` after `Ctrl+C` is a normal Windows `cmd.exe`
+prompt for stopping a running npm script — answer `y` (or `n` to keep it
+running in that terminal, which is how you can end up with a stray dev
+server still bound to 3000 later).
+
+### Terminal stuck on "✓ Starting..." and never finishes compiling
+
+Seen on Windows when an old `next dev` process from an earlier, interrupted
+session is still alive and squatting on a port (e.g. 3000), holding onto
+several GB of RAM. The *new* `npm run dev` you just launched isn't actually
+frozen — it's real work, just starved of CPU/memory by the zombie process,
+so first-compile takes far longer than the couple of seconds it normally
+does. Symptom: the new server falls back to 3001 (see above) and then sits
+at "Starting..." for a long time instead of printing "Ready".
+
+Diagnose and fix:
+
+```bash
+netstat -ano | grep ":3000\|:3001"        # find PIDs bound to either port
+tasklist //FI "PID eq <pid>"              # confirm it's a stale node.exe
+taskkill //PID <pid> //F                  # kill it
+```
+
+After killing the stale process, the new dev server should finish
+compiling almost immediately. Don't kill the terminal/process you're
+actively working in without checking first — inspect the PID before you
+kill it.
+
 ## File-by-file map
 
 ### `app/` — Next.js App Router shell
@@ -78,6 +122,15 @@ project if you don't set real credentials.
   `certifications`. Every component imports from here rather than hardcoding
   strings. **To update the site's content (new job, new project, changed
   bio), edit this file — never hardcode text directly into a component.**
+  Notable fields on `profile`: `resumeUrl` (Google Drive link used by the
+  navbar's Download Resume button — currently a placeholder, swap in the
+  real share link) and `githubUsername` (drives both the repo carousel and
+  the contribution calendar). `certifications` is an array of
+  `{ name, url }` — `url` is a placeholder Credly/Drive link per entry, not
+  a real one yet. `education` is an array consumed as a timeline — append
+  new entries (e.g. schooling) here and they render automatically, oldest
+  styling assumptions unchanged. `about` is just `{ paragraphs: string[] }`
+  rendered verbatim by `About.tsx`.
 - **`lib/github.ts`** — server-side fetch helpers against the GitHub REST
   API (`api.github.com`). `getPinnedOrRecentRepos(username, limit)` pulls
   the user's repos, filters out forks, sorts by star count, and returns the
@@ -99,35 +152,77 @@ section of the page, in the order they're rendered in `app/page.tsx`:
 
 - **`Navbar.tsx`** (client) — fixed header, becomes blurred/opaque on
   scroll (`useState` + scroll listener). Anchor links to each section's
-  `id`. Social icons link out via `lib/data.ts`'s `profile`.
+  `id`. **The `links` array order must match the actual section order in
+  `app/page.tsx`** (About → Work → Skills → Experience → Contact) — it's
+  a plain hardcoded array, not derived from the page, so if you reorder
+  sections in `page.tsx` you must reorder `links` here too or the nav
+  will scroll out of sequence. `github`/`education` have no nav entry by
+  design (reachable by scrolling, not from the header). Social icons link
+  out via `lib/data.ts`'s `profile`, plus a "Resume" pill (`Download` icon
+  + text, hidden below `sm:`) that links to `profile.resumeUrl` — this is
+  the *only* place the resume download link lives; it is not duplicated
+  in Education/Certifications.
 - **`Hero.tsx`** (client) — the big headline. Uses Framer Motion
-  `variants`/`staggerChildren` to animate each word of "Jay Girish Patel."
-  in on load, with "Patel." colored in the accent (signal) color. Contains
-  the two CTA buttons (`MagneticButton`) linking to `#projects` and
-  `#contact`.
+  `variants`/`staggerChildren` to animate each word of "Jay Patel." in on
+  load, with "Patel." colored in the accent (signal) color. The
+  availability badge just reads "Available for work" (no timezone). Each
+  word wrapper has `pb-[0.12em]` added to its `overflow-hidden` clip mask
+  so descenders (e.g. the "y" in "Jay") aren't cut off by the reveal
+  animation. Contains the two CTA buttons (`MagneticButton`) linking to
+  `#projects` and `#contact`.
+- **`About.tsx`** (client) — section index `01`, the first numbered
+  section after the hero. Just maps `about.paragraphs` from `lib/data.ts`
+  into a single `GlowCard`. To edit the bio copy, edit that array, not
+  this component.
 - **`Projects.tsx`** (client) — renders `projects` from `lib/data.ts` as
   two `GlowCard`s with scroll-triggered fade/slide-in and a hover lift.
 - **`GitHubShowcase.tsx`** (**server** component, no `"use client"`) —
-  calls `getPinnedOrRecentRepos` at render time and renders each repo as a
-  `GlowCard`. Also renders `<GithubCalendar />`. If the fetch fails or
-  returns nothing, shows a plain-text fallback instead of an empty grid.
+  calls `getPinnedOrRecentRepos` at render time (fetches up to 24 repos)
+  and hands them to `RepoGrid` for rendering. Also renders
+  `<GithubCalendar />`. If the fetch fails or returns nothing, shows a
+  plain-text fallback instead of an empty grid.
+- **`RepoGrid.tsx`** (client) — takes the full repo list and a `pageSize`
+  (defaults to 6) and renders one page of `GlowCard` repo cards at a time,
+  carousel-style. `page` state + prev/next buttons and dot indicators
+  (wraparound via modulo) page through the set; no "view more" button and
+  no separate route — everything after the first 6 repos is reached by
+  clicking through the carousel. If `repos.length <= pageSize`, the
+  prev/next controls don't render at all.
 - **`GithubCalendar.tsx`** (**server** component) — separate from
   `lib/github.ts` because it hits a *different* API
   (`github-contributions-api.jogruber.de`, a third-party wrapper around
   GitHub's contribution graph, which has no public official REST endpoint).
-  Renders a 26-week heatmap grid using CSS `bg-signal/{opacity}` steps for
-  contribution levels 0–4. Returns `null` (renders nothing) if the fetch
-  fails, so a network hiccup never breaks the page layout.
+  Renders **every** week returned by the API (no slicing) in a CSS grid
+  (`grid-template-columns: repeat(weeks.length, minmax(0,1fr))`) with
+  `aspect-square w-full` cells, so the heatmap always stretches to fill
+  its container width regardless of how many weeks of history exist.
+  Returns `null` (renders nothing) if the fetch fails, so a network
+  hiccup never breaks the page layout.
 - **`Skills.tsx`** (client) — bento-grid layout driven by `skills` in
   `lib/data.ts`, where each skill group has a `span` string (e.g.
   `"md:col-span-2 md:row-span-2"`) controlling its grid footprint. **To
   resize a skill card, edit its `span` value in `lib/data.ts`, not the
   component.**
 - **`Experience.tsx`** (client) — vertical timeline with a gradient line
-  down the left edge, one `GlowCard` per entry in `experience`.
-- **`Education.tsx`** (client) — two side-by-side cards: degrees
-  (`education`) and certifications (`certifications`), both from
-  `lib/data.ts`.
+  down the left edge, one `GlowCard` per entry in `experience`. Each entry
+  has an `experienceLetterUrl` field in `lib/data.ts` — `null` while the
+  role is ongoing, or a Drive share link once it's completed. The card
+  only renders the "Experience Letter" button when that field is
+  non-null, so finishing a role is just: set the real Drive URL on that
+  entry.
+- **`Education.tsx`** (client) — mirrors `Experience.tsx`'s pattern:
+  `education` entries render as a vertical timeline (gradient line down
+  the left edge, one `GlowCard` per entry) so new schooling entries can
+  just be appended to `lib/data.ts` and will slot into the timeline
+  automatically. Each entry also has a `marksheetUrl` field — `null` hides
+  the button, a Drive link shows a "View Result" button beneath the
+  passing-year label (same right-aligned column layout as the
+  "View Letter" button in `Experience.tsx`). Below the timeline, a
+  separate `GlowCard` lists `certifications` as clickable links
+  (`cert.url`, opens in a new tab) — each has an `ExternalLink` icon and an
+  underline that highlights signal-
+  red on hover. Certification URLs are still placeholders (Credly/Drive)
+  until the user supplies the real ones.
 - **`Contact.tsx`** (client) — the only component with real form state and
   a side effect. Controlled inputs (`name`, `email`, `message`) →
   `supabase.from("contact_messages").insert(...)` on submit → `status`
@@ -151,6 +246,12 @@ section of the page, in the order they're rendered in `app/page.tsx`:
 - **`SectionHeading.tsx`** (client) — the "01 — Section Title" heading
   pattern used at the top of every section. Takes `index`, `title`,
   `description`. Animates in on scroll via `whileInView`.
+- **`ScrollToTop.tsx`** (client) — fixed bottom-right circular arrow-up
+  button, rendered once in `app/page.tsx` after `<Footer />` (so it floats
+  over the whole page, not scoped to one section). Hidden until
+  `window.scrollY > 480`, then fades/scales in via `AnimatePresence`;
+  click smooth-scrolls to the top (`window.scrollTo({ top: 0, behavior:
+  "smooth" })`).
 
 ### `supabase/schema.sql`
 

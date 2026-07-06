@@ -10,7 +10,7 @@ export default function Projects() {
     <section id="projects" className="px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
-          index="01"
+          index="02"
           title="Featured Projects"
           description="Applied machine learning and analytics projects, from raw data to measurable outcomes."
         />

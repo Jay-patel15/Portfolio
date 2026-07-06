@@ -3,14 +3,23 @@ export const profile = {
   fullName: "Jay Girish Patel",
   role: "Data Analyst",
   location: "Thane, Maharashtra",
-  timezone: "IST (UTC+5:30)",
   phone: "+91 98920 07108",
   email: "gjaypatel15@gmail.com",
   github: "https://github.com/Jay-patel15",
   githubUsername: "Jay-patel15",
-  linkedin: "https://linkedin.com/in/jay-patel15",
+  linkedin: "https://www.linkedin.com/in/jay-patel-30904b317",
   tagline: "Data Analyst specializing in Python, SQL, Power BI, and Machine Learning.",
   available: true,
+  // TODO: replace with the real shareable Google Drive resume link.
+  resumeUrl: "https://drive.google.com/file/d/1i3GKz4ZrFr73qQvcRX5Y_x-son1MAk5f/view?usp=drive_link",
+};
+
+export const about = {
+  paragraphs: [
+    "I'm a Data Analyst based in Thane, Maharashtra, focused on turning raw, messy data into decisions people can actually act on.",
+    "I recently completed a stint as a Data Validation Analyst (QA Intern) at Schbang, building automated data-quality pipelines for an AI product — writing Python scripts, cross-validating outputs against MySQL/MongoDB sources, and tracking defect trends across releases.",
+    "My toolkit spans Python, SQL, Power BI, and Machine Learning, backed by a B.E. in Artificial Intelligence & Data Science. I like problems where the data is dirty and the stakes are real.",
+  ],
 };
 
 export const skills = [
@@ -51,7 +60,8 @@ export const experience = [
     id: "schbang",
     role: "Data Validation Analyst (QA Intern Role)",
     company: "Schbang",
-    period: "Jan 2026 – Ongoing",
+    period: "Jan 2026 – May 2026",
+    experienceLetterUrl: "https://drive.google.com/file/d/183TKHH9z0xduENHKLZjgJn3dEBMpoUj4/view?usp=drive_link",
     points: [
       "Designed and executed data validation workflows for “Second Brain” AI product, ensuring accuracy and consistency of structured and unstructured datasets across chat, knowledge-base, and document pipelines.",
       "Wrote 20+ Python scripts using Pandas, Selenium, and Playwright to automate data quality checks, reducing manual validation effort by 40%.",
@@ -92,6 +102,7 @@ export const projects = [
   },
 ];
 
+// Set each marksheetUrl to the real Drive share link for that result; leave null to hide the "View Result" button.
 export const education = [
   {
     id: "be-aids",
@@ -99,6 +110,7 @@ export const education = [
     institution: "New Horizon Institute of Technology and Management, Thane",
     score: "CGPI: 7.0",
     period: "Jun 2025",
+    marksheetUrl: null,
   },
   {
     id: "diploma-ce",
@@ -106,11 +118,30 @@ export const education = [
     institution: "Pravin Patil Polytechnic, Bhayandar",
     score: "82%",
     period: "Jul 2022",
+    marksheetUrl: null,
+  },
+  {
+    id: "SSC",
+    degree: "SSC",
+    institution: "RK Memorial High School Bhayandar",
+    score: "69.6%",
+    period: "March 2018",
+    marksheetUrl: null,
   },
 ];
 
+// TODO: replace each url with the real Credly badge or Drive share link.
 export const certifications = [
-  "Python Programming for Absolute Beginners – SQL in Python (Udemy)",
-  "Cybersecurity Fundamentals (IBM)",
-  "Accenture North America – Data Analytics and Visualization Job Simulation",
+  {
+    name: "Python Programming for Absolute Beginners – SQL in Python (Udemy)",
+    url: "https://www.udemy.com/certificate/UC-3531d901-2339-4ed9-8bfc-fdeec232fb76/",
+  },
+  {
+    name: "Cybersecurity Fundamentals (IBM)",
+    url: "https://www.credly.com/badges/055dfacb-ed04-41df-826f-7ace038189b7/public_url",
+  },
+  {
+    name: "Accenture North America – Data Analytics and Visualization Job Simulation",
+    url: "https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/Accenture%20North%20America/hzmoNKtzvAzXsEqx8_Accenture%20North%20America_LAkgbvRSHpH9BK9W3_1720182999511_completion_certificate.pdf",
+  },
 ];
