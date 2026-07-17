@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
-import { supabase } from "@/lib/supabase";
 import { profile } from "@/lib/data";
 import SectionHeading from "./ui/SectionHeading";
 import Button from "./ui/Button";
@@ -26,20 +25,26 @@ export default function Contact() {
     setStatus("loading");
     setErrorMsg("");
 
-    const { error } = await supabase.from("contact_messages").insert({
-      name: form.name.trim(),
-      email: form.email.trim(),
-      message: form.message.trim(),
-    });
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/f00e0d25915fc1212cad3971657db607", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          message: form.message.trim(),
+          _subject: `New portfolio message from ${form.name.trim()}`,
+        }),
+      });
 
-    if (error) {
+      if (!res.ok) throw new Error("Request failed");
+
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+    } catch {
       setStatus("error");
       setErrorMsg("Something went wrong. Please try again or email me directly.");
-      return;
     }
-
-    setStatus("success");
-    setForm({ name: "", email: "", message: "" });
   };
 
   return (
