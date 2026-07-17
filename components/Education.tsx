@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { GraduationCap, BadgeCheck, ExternalLink, FileText } from "lucide-react";
 import { education, certifications } from "@/lib/data";
 import SectionHeading from "./ui/SectionHeading";
-import GlowCard from "./ui/GlowCard";
+import Card from "./ui/Card";
 
 export default function Education() {
   return (
@@ -13,7 +13,7 @@ export default function Education() {
         <SectionHeading index="06" title="Education & Certifications" />
 
         <div className="relative mb-12">
-          <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-signal via-white/10 to-transparent" />
+          <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-accent via-line to-transparent" />
 
           <div className="space-y-10">
             {education.map((ed, i) => (
@@ -25,32 +25,32 @@ export default function Education() {
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 className="relative pl-10"
               >
-                <span className="absolute left-0 top-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-signal shadow-signal">
-                  <GraduationCap size={9} className="text-white" />
+                <span className="absolute left-0 top-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-accent">
+                  <GraduationCap size={9} className="text-bg" />
                 </span>
 
-                <GlowCard>
+                <Card>
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                    <h3 className="font-display text-lg font-semibold text-white">
+                    <h3 className="font-serif text-lg font-semibold text-ink">
                       {ed.degree}
                     </h3>
                     <div className="flex items-center gap-3 sm:flex-col sm:items-end sm:gap-2">
-                      <span className="font-mono text-xs text-signal">{ed.period}</span>
+                      <span className="font-mono text-xs text-accent">{ed.period}</span>
                       {ed.marksheetUrl && (
                         <a
                           href={ed.marksheetUrl}
                           target="_blank"
                           rel="noreferrer noopener"
-                          className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-medium text-white/70 transition-colors hover:border-signal/40 hover:text-white"
+                          className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-muted px-3 py-1 text-[11px] font-medium text-ink-muted transition-colors hover:border-accent/40 hover:text-ink"
                         >
                           <FileText size={12} /> View Result
                         </a>
                       )}
                     </div>
                   </div>
-                  <p className="mt-1 text-sm text-white/50">{ed.institution}</p>
-                  <p className="mt-1 text-xs font-medium text-signal">{ed.score}</p>
-                </GlowCard>
+                  <p className="mt-1 text-sm text-ink-muted">{ed.institution}</p>
+                  <p className="mt-1 text-xs font-medium text-accent">{ed.score}</p>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -62,9 +62,9 @@ export default function Education() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5 }}
         >
-          <GlowCard>
-            <h3 className="flex items-center gap-2 font-display text-base font-semibold text-white">
-              <BadgeCheck size={18} className="text-signal" /> Certifications
+          <Card>
+            <h3 className="flex items-center gap-2 font-serif text-base font-semibold text-ink">
+              <BadgeCheck size={18} className="text-accent" /> Certifications
             </h3>
             <ul className="mt-5 space-y-3">
               {certifications.map((cert) => (
@@ -73,21 +73,21 @@ export default function Education() {
                     href={cert.url}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="group flex items-start gap-3 text-sm text-white/60 transition-colors hover:text-white"
+                    className="group flex items-start gap-3 text-sm text-ink-muted transition-colors hover:text-ink"
                   >
-                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-signal" />
-                    <span className="underline decoration-white/20 underline-offset-4 group-hover:decoration-signal">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                    <span className="underline decoration-line-strong underline-offset-4 group-hover:decoration-accent">
                       {cert.name}
                     </span>
                     <ExternalLink
                       size={12}
-                      className="mt-0.5 shrink-0 text-white/30 group-hover:text-signal"
+                      className="mt-0.5 shrink-0 text-ink-muted group-hover:text-accent"
                     />
                   </a>
                 </li>
               ))}
             </ul>
-          </GlowCard>
+          </Card>
         </motion.div>
       </div>
     </section>

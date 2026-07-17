@@ -21,7 +21,7 @@ export default async function GitHubShowcase() {
         {repos.length > 0 ? (
           <RepoGrid repos={repos} pageSize={6} />
         ) : (
-          <p className="mt-10 text-sm text-white/40">
+          <p className="mt-10 text-sm text-ink-muted">
             GitHub repositories are temporarily unavailable — check back shortly.
           </p>
         )}

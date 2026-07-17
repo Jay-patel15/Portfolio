@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { about } from "@/lib/data";
 import SectionHeading from "./ui/SectionHeading";
-import GlowCard from "./ui/GlowCard";
+import Card from "./ui/Card";
 
 export default function About() {
   return (
@@ -17,15 +17,15 @@ export default function About() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <GlowCard>
+          <Card>
             <div className="space-y-4">
               {about.paragraphs.map((p) => (
-                <p key={p} className="text-base leading-relaxed text-white/60">
+                <p key={p} className="text-base leading-relaxed text-ink-muted">
                   {p}
                 </p>
               ))}
             </div>
-          </GlowCard>
+          </Card>
         </motion.div>
       </div>
     </section>

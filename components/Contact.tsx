@@ -6,7 +6,7 @@ import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { profile } from "@/lib/data";
 import SectionHeading from "./ui/SectionHeading";
-import MagneticButton from "./ui/MagneticButton";
+import Button from "./ui/Button";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -53,11 +53,11 @@ export default function Contact() {
 
         <form
           onSubmit={handleSubmit}
-          className="relative rounded-3xl border border-white/[0.08] bg-white/[0.03] p-8 backdrop-blur-xl shadow-glass"
+          className="relative rounded-3xl border border-line bg-surface p-8 shadow-card"
         >
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="sm:col-span-1">
-              <label htmlFor="name" className="text-xs font-medium text-white/50">
+              <label htmlFor="name" className="text-xs font-medium text-ink-muted">
                 Name
               </label>
               <input
@@ -68,12 +68,12 @@ export default function Contact() {
                 value={form.name}
                 onChange={handleChange}
                 autoComplete="name"
-                className="mt-2 w-full rounded-xl border border-white/10 bg-void-900/60 px-4 py-3 text-sm text-white shadow-neu-dark-inset outline-none transition-colors focus:border-signal/50"
+                className="mt-2 w-full rounded-xl border border-line-strong bg-surface-muted px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-accent"
                 placeholder="Your name"
               />
             </div>
             <div className="sm:col-span-1">
-              <label htmlFor="email" className="text-xs font-medium text-white/50">
+              <label htmlFor="email" className="text-xs font-medium text-ink-muted">
                 Email
               </label>
               <input
@@ -84,12 +84,12 @@ export default function Contact() {
                 value={form.email}
                 onChange={handleChange}
                 autoComplete="email"
-                className="mt-2 w-full rounded-xl border border-white/10 bg-void-900/60 px-4 py-3 text-sm text-white shadow-neu-dark-inset outline-none transition-colors focus:border-signal/50"
+                className="mt-2 w-full rounded-xl border border-line-strong bg-surface-muted px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-accent"
                 placeholder="you@email.com"
               />
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="message" className="text-xs font-medium text-white/50">
+              <label htmlFor="message" className="text-xs font-medium text-ink-muted">
                 Message
               </label>
               <textarea
@@ -99,14 +99,14 @@ export default function Contact() {
                 rows={5}
                 value={form.message}
                 onChange={handleChange}
-                className="mt-2 w-full resize-none rounded-xl border border-white/10 bg-void-900/60 px-4 py-3 text-sm text-white shadow-neu-dark-inset outline-none transition-colors focus:border-signal/50"
+                className="mt-2 w-full resize-none rounded-xl border border-line-strong bg-surface-muted px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-accent"
                 placeholder="Tell me about the role or project..."
               />
             </div>
           </div>
 
           <div className="mt-6 flex items-center justify-between gap-4">
-            <MagneticButton type="submit" disabled={status === "loading"}>
+            <Button type="submit" disabled={status === "loading"}>
               {status === "loading" ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" /> Sending...
@@ -114,11 +114,11 @@ export default function Contact() {
               ) : (
                 "Send Message"
               )}
-            </MagneticButton>
+            </Button>
 
             <a
               href={`mailto:${profile.email}`}
-              className="text-xs font-medium text-white/40 hover:text-white"
+              className="text-xs font-medium text-ink-muted hover:text-ink"
             >
               or email directly
             </a>
@@ -131,7 +131,7 @@ export default function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 role="status"
-                className="mt-5 flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300"
+                className="mt-5 flex items-center gap-2 rounded-xl border border-success/30 bg-success/10 px-4 py-3 text-sm text-success"
               >
                 <CheckCircle2 size={16} /> Message sent — I'll get back to you soon.
               </motion.div>
@@ -142,7 +142,7 @@ export default function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 role="alert"
-                className="mt-5 flex items-center gap-2 rounded-xl border border-signal/30 bg-signal/10 px-4 py-3 text-sm text-signal-glow"
+                className="mt-5 flex items-center gap-2 rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger"
               >
                 <AlertCircle size={16} /> {errorMsg}
               </motion.div>

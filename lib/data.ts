@@ -8,7 +8,7 @@ export const profile = {
   github: "https://github.com/Jay-patel15",
   githubUsername: "Jay-patel15",
   linkedin: "https://www.linkedin.com/in/jay-patel-30904b317",
-  tagline: "Data Analyst specializing in Python, SQL, Power BI, and Machine Learning.",
+  tagline: "Data Analyst specializing in Python, SQL, Power BI, and Machine Learning — with additional strength in QA & Data Validation.",
   available: true,
   // TODO: replace with the real shareable Google Drive resume link.
   resumeUrl: "https://drive.google.com/file/d/1i3GKz4ZrFr73qQvcRX5Y_x-son1MAk5f/view?usp=drive_link",
@@ -88,17 +88,17 @@ export const projects = [
     metric: { value: "92%", label: "model accuracy" },
   },
   {
-    id: "farm-expert",
-    title: "Farm Expert App",
-    stack: ["Python", "Data Analysis", "ML", "Matplotlib"],
+    id: "pdf-to-csv",
+    title: "PDF to CSV Converter using Regex",
+    stack: ["Python", "Regex", "PDF Parsing", "Pandas"],
     description:
-      "Analysed agricultural dataset (soil composition, rainfall, temperature) to surface actionable crop-selection insights.",
+      "College project (NHITM) that extracts tabular data from unstructured PDF documents and converts it into clean CSV files using regex-based pattern matching.",
     highlights: [
-      "85% prediction accuracy",
-      "200+ active users served",
-      "Feature selection driven by domain-aware data prep",
+      "Automated extraction from multi-page PDFs",
+      "Regex patterns handled inconsistent table formatting",
+      "Eliminated manual data re-entry",
     ],
-    metric: { value: "200+", label: "users served" },
+    metric: { value: "100%", label: "manual entry eliminated" },
   },
 ];
 

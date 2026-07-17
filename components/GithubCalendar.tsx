@@ -1,4 +1,4 @@
-import GlowCard from "./ui/GlowCard";
+import Card from "./ui/Card";
 
 type ContributionDay = { date: string; count: number; level: 0 | 1 | 2 | 3 | 4 };
 
@@ -17,11 +17,11 @@ async function getContributions(username: string): Promise<ContributionDay[]> {
 }
 
 const levelColor: Record<number, string> = {
-  0: "bg-white/[0.04]",
-  1: "bg-signal/20",
-  2: "bg-signal/45",
-  3: "bg-signal/70",
-  4: "bg-signal",
+  0: "bg-line",
+  1: "bg-accent/30",
+  2: "bg-accent/55",
+  3: "bg-accent/85",
+  4: "bg-accent",
 };
 
 export default async function GithubCalendar({ username }: { username: string }) {
@@ -38,9 +38,9 @@ export default async function GithubCalendar({ username }: { username: string })
   const total = days.reduce((sum, d) => sum + d.count, 0);
 
   return (
-    <GlowCard>
+    <Card>
       <div className="flex items-center justify-between">
-        <p className="font-mono text-xs text-white/40">
+        <p className="font-mono text-xs text-ink-muted">
           {total.toLocaleString()} contributions in the last year
         </p>
       </div>
@@ -65,6 +65,6 @@ export default async function GithubCalendar({ username }: { username: string })
           ))}
         </div>
       </div>
-    </GlowCard>
+    </Card>
   );
 }
