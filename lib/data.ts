@@ -1,28 +1,42 @@
 export const profile = {
   name: "Jay Patel",
   fullName: "Jay Girish Patel",
-  role: "Data Analyst",
+  role: "SDET with the powers of DA",
   location: "Thane, Maharashtra",
   phone: "+91 98920 07108",
   email: "gjaypatel15@gmail.com",
   github: "https://github.com/Jay-patel15",
   githubUsername: "Jay-patel15",
   linkedin: "https://www.linkedin.com/in/jay-patel-30904b317",
-  tagline: "Data Analyst specializing in Python, SQL, Power BI, and Machine Learning — with additional strength in QA & Data Validation.",
+  tagline: "SDET & QA Automation Engineer specializing in building robust test frameworks and automated data-validation pipelines — leveraging Python, SQL, Selenium, Playwright, and Machine Learning.",
   available: true,
-  // TODO: replace with the real shareable Google Drive resume link.
   resumeUrl: "https://drive.google.com/file/d/1i3GKz4ZrFr73qQvcRX5Y_x-son1MAk5f/view?usp=drive_link",
 };
 
 export const about = {
   paragraphs: [
-    "I'm a Data Analyst based in Thane, Maharashtra, focused on turning raw, messy data into decisions people can actually act on.",
-    "I recently completed a stint as a Data Validation Analyst (QA Intern) at Schbang, building automated data-quality pipelines for an AI product — writing Python scripts, cross-validating outputs against MySQL/MongoDB sources, and tracking defect trends across releases.",
-    "My toolkit spans Python, SQL, Power BI, and Machine Learning, backed by a B.E. in Artificial Intelligence & Data Science. I like problems where the data is dirty and the stakes are real.",
+    "I'm an SDET and QA Automation Engineer based in Thane, Maharashtra, focused on building robust automation testing frameworks and data-quality pipelines.",
+    "I recently completed a stint as a Data Validation Analyst (QA Intern) at Schbang, where I designed and executed QA automation test suites for an AI agent product. I wrote 20+ automation scripts in Python (using Selenium and Playwright) to test multi-page UI pipelines, API schemas, and model outputs, reducing manual validation cycles by 40%.",
+    "My toolkit spans Selenium, Playwright, Python, SQL, and database validation (MySQL, MongoDB), backed by a B.E. in Artificial Intelligence & Data Science. I combine software testing precision with the data-crunching power of an analyst to ensure both code reliability and data integrity.",
   ],
 };
 
 export const skills = [
+  {
+    id: "testing",
+    title: "Automation & Testing",
+    span: "md:col-span-2 md:row-span-2",
+    items: [
+      "Locust (load testing)",
+      "Playwright",
+      "Test Automation",
+      "API Testing",
+      "Regression Testing",
+      "Boundary-Value Analysis",
+      "Edge Case Design",
+      "Defect Tracking"
+    ],
+  },
   {
     id: "languages",
     title: "Languages",
@@ -30,28 +44,22 @@ export const skills = [
     items: ["Python (advanced)", "SQL (MySQL)", "Java (basic)"],
   },
   {
-    id: "data",
-    title: "Data & Analysis",
-    span: "md:col-span-2 md:row-span-2",
-    items: ["Pandas", "NumPy", "Data Cleaning", "EDA", "Statistical Validation", "Regex"],
-  },
-  {
-    id: "bi",
-    title: "BI & Visualization",
+    id: "data-validation",
+    title: "Data Validation & Analytics",
     span: "md:col-span-2",
-    items: ["Power BI", "Tableau", "Excel (pivot tables)", "Advanced charts"],
+    items: ["Pandas (data checks)", "NumPy", "Data Cleaning", "EDA", "Schema Validation", "Regex"],
   },
   {
-    id: "ml",
-    title: "ML Libraries",
+    id: "bi-ml",
+    title: "BI & ML Libraries",
     span: "md:col-span-1",
-    items: ["Scikit-learn", "Classification", "Feature engineering"],
+    items: ["Power BI", "Tableau", "Scikit-learn"],
   },
   {
     id: "tools",
     title: "Databases & Tools",
     span: "md:col-span-3",
-    items: ["MySQL", "MongoDB", "Git", "Jupyter Notebook", "VS Code"],
+    items: ["MySQL", "MongoDB", "Git", "VS Code", "Postman", "Jupyter Notebook"],
   },
 ];
 
@@ -63,17 +71,43 @@ export const experience = [
     period: "Jan 2026 – May 2026",
     experienceLetterUrl: "https://drive.google.com/file/d/183TKHH9z0xduENHKLZjgJn3dEBMpoUj4/view?usp=drive_link",
     points: [
-      "Designed and executed data validation workflows for “Second Brain” AI product, ensuring accuracy and consistency of structured and unstructured datasets across chat, knowledge-base, and document pipelines.",
-      "Wrote 20+ Python scripts using Pandas, Selenium, and Playwright to automate data quality checks, reducing manual validation effort by 40%.",
-      "Identified 50+ data defects including schema mismatches, null propagation, and incorrect AI retrieval outputs; produced data-backed defect reports shared with product and ML stakeholders.",
-      "Increased data test coverage by 30% through parameterised test design covering boundary values, negative inputs, and edge cases for AI model data flows.",
-      "Queried MySQL and MongoDB databases to cross-validate application outputs against source data, identifying discrepancies at the record level.",
-      "Tracked quality trends across releases, providing analytical summaries to guide prioritisation of fixes before each deployment.",
+      "Designed and executed QA test automation and data validation workflows for “Second Brain” AI product, verifying chat retrieval outputs and multi-page doc pipelines.",
+      "Built and maintained automated performance and functional testing suites using Python, Locust, and Playwright, shrinking execution cycles by 40%.",
+      "Uncovered 50+ system and data defects (null propagation bugs, schema mismatches, and incorrect retrieval behaviors), generating comprehensive bug reports for developer and product squads.",
+      "Created parameterized testing matrices incorporating boundary, negative, and extreme inputs, amplifying total QA test coverage by 30%.",
+      "Queried MongoDB and MySQL databases to perform backend validation, validating exact record-level outputs against live API responses.",
+      "Monitored defect density trends over multiple sprint release cycles, providing clear analytics-driven release quality checkoffs for staging deployment.",
     ],
   },
 ];
 
 export const projects = [
+  {
+    id: "ai-product-testing",
+    title: "AI Agent Performance & QA Suite",
+    stack: ["Python", "Locust", "Playwright", "Load Testing"],
+    description:
+      "Built a modular performance and automation framework for the 'Second Brain' AI product to simulate user loads, verify response latencies, and check UI flows.",
+    highlights: [
+      "Reduced manual QA cycles by 40% using Playwright regression scripts",
+      "Simulated 500+ concurrent user chat sessions via Locust load scripts",
+      "Automated schema verification and database record assertions",
+    ],
+    metric: { value: "500+", label: "concurrent users" },
+  },
+  {
+    id: "regex-data-validation",
+    title: "Regex-Based PDF Data Validation Suite",
+    stack: ["Python", "Regex", "Pandas", "Unit Testing"],
+    description:
+      "Designed a parsing and verification pipeline to extract complex tables from unstructured documents and validate schema integrity before importing to MySQL/MongoDB.",
+    highlights: [
+      "100% automated validation accuracy",
+      "Robust assertion scripts catching null values and invalid shapes",
+      "Wrote test suites to cover edge formats and schema shifts",
+    ],
+    metric: { value: "100%", label: "data accuracy achieved" },
+  },
   {
     id: "predictive-maintenance",
     title: "Predictive Maintenance Using ML",

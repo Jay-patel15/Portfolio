@@ -33,30 +33,32 @@ const THEME_INIT_SCRIPT = `(function() {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jaypatel.dev"),
-  title: "Jay Patel — Data Analyst",
+  title: "Jay Patel — SDET & Data Analyst",
   description:
-    "Jay Patel is a Data Analyst specializing in Python, SQL, Power BI, and Machine Learning, based in Thane, Maharashtra.",
+    "Jay Patel is an SDET with the powers of DA, specializing in Python, SQL, Selenium, Playwright, and automated data-validation pipelines.",
   keywords: [
     "Jay Patel",
+    "SDET",
     "Data Analyst",
+    "QA Automation",
     "Python",
     "SQL",
-    "Power BI",
-    "Machine Learning",
-    "Data Analytics Portfolio",
+    "Locust",
+    "Playwright",
+    "Data Validation",
   ],
   authors: [{ name: "Jay Patel" }],
   openGraph: {
-    title: "Jay Patel — Data Analyst",
+    title: "Jay Patel — SDET & Data Analyst",
     description:
-      "Data Analyst specializing in Python, SQL, Power BI, and Machine Learning.",
+      "SDET & QA Automation Engineer specializing in building robust test frameworks and automated data-validation pipelines.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jay Patel — Data Analyst",
+    title: "Jay Patel — SDET & Data Analyst",
     description:
-      "Data Analyst specializing in Python, SQL, Power BI, and Machine Learning.",
+      "SDET & QA Automation Engineer specializing in building robust test frameworks and automated data-validation pipelines.",
   },
 };
 

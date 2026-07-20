@@ -19,8 +19,8 @@ export default function About() {
         >
           <Card>
             <div className="space-y-4">
-              {about.paragraphs.map((p) => (
-                <p key={p} className="text-base leading-relaxed text-ink-muted">
+              {about.paragraphs.map((p, index) => (
+                <p key={index} className="text-base leading-relaxed text-ink-muted">
                   {p}
                 </p>
               ))}

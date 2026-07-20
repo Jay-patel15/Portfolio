@@ -12,7 +12,7 @@ export default function Skills() {
         <SectionHeading
           index="04"
           title="Skills & Toolkit"
-          description="The languages, frameworks, and tools I use to turn raw data into decisions."
+          description="The languages, frameworks, and tools I use to build automated validation frameworks and analyze data."
         />
 
         <div className="grid gap-5 md:grid-cols-4">

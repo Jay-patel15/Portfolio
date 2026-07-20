@@ -14,7 +14,7 @@ export default function Projects() {
         <SectionHeading
           index="02"
           title="Featured Projects"
-          description="Applied machine learning and analytics projects, from raw data to measurable outcomes."
+          description="Modular test automation frameworks, custom regex parsers, and machine learning pipelines."
         />
 
         <div className="grid gap-6 md:grid-cols-2">

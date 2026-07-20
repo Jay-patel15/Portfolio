@@ -13,7 +13,7 @@ export default function Experience() {
         <SectionHeading
           index="05"
           title="Experience"
-          description="Hands-on QA and data-validation work shipping directly into an AI product."
+          description="Hands-on software test automation and data-validation experience shipping directly into production AI pipelines."
         />
 
         <div className="relative">

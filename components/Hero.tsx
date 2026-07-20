@@ -35,7 +35,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100vh] flex-col justify-center overflow-hidden px-6 pt-28"
+      className="relative flex min-h-[100vh] flex-col justify-center overflow-hidden px-6 pt-28 pb-12"
     >
       <div
         aria-hidden="true"
@@ -61,7 +61,7 @@ export default function Hero() {
         </motion.div>
 
         <p className="font-mono text-sm uppercase tracking-widest text-accent">
-          Data Analyst — {profile.location}
+          {profile.role} — {profile.location}
         </p>
 
         <motion.h1
@@ -95,7 +95,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.9 }}
+          transition={{ duration: 0.7, delay: 0.95 }}
           className="mt-10 flex flex-wrap items-center gap-4"
         >
           <Button href="#projects" variant="solid">
@@ -117,7 +117,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 1.1 }}
+          transition={{ duration: 0.7, delay: 1.15 }}
           className="mt-14 flex flex-wrap items-center gap-6 text-sm text-ink-muted"
         >
           <span className="inline-flex items-center gap-1.5">
@@ -152,7 +152,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.4 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2"
       >
         <ArrowDown className="h-5 w-5 animate-bounce text-ink-muted/60" />
       </motion.div>
