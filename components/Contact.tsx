@@ -138,7 +138,7 @@ export default function Contact() {
                 role="status"
                 className="mt-5 flex items-center gap-2 rounded-xl border border-success/30 bg-success/10 px-4 py-3 text-sm text-success"
               >
-                <CheckCircle2 size={16} /> Message sent — I'll get back to you soon.
+                <CheckCircle2 size={16} /> Message sent — I&apos;ll get back to you soon.
               </motion.div>
             )}
             {status === "error" && (
