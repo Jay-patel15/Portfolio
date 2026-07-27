@@ -1,82 +1,82 @@
 export const profile = {
   name: "Jay Patel",
   fullName: "Jay Girish Patel",
-  role: "SDET with the powers of DA",
+  role: "Data Analyst & Software Developer",
   location: "Thane, Maharashtra",
   phone: "+91 98920 07108",
   email: "gjaypatel15@gmail.com",
   github: "https://github.com/Jay-patel15",
   githubUsername: "Jay-patel15",
   linkedin: "https://www.linkedin.com/in/jay-patel-30904b317",
-  tagline: "SDET & QA Automation Engineer specializing in building robust test frameworks and automated data-validation pipelines — leveraging Python, SQL, Selenium, Playwright, and Machine Learning.",
+  tagline: "Data Analyst & Software Developer specializing in data engineering pipelines, analytics dashboards, SQL database architecture, and full-stack web solutions — leveraging Python, SQL, Next.js, Pandas, and Machine Learning.",
   available: true,
   resumeUrl: "https://drive.google.com/file/d/1i3GKz4ZrFr73qQvcRX5Y_x-son1MAk5f/view?usp=drive_link",
 };
 
 export const about = {
   paragraphs: [
-    "I'm an SDET and QA Automation Engineer based in Thane, Maharashtra, focused on building robust automation testing frameworks and data-quality pipelines.",
-    "I recently completed a stint as a Data Validation Analyst (QA Intern) at Schbang, where I designed and executed QA automation test suites for an AI agent product. I wrote 20+ automation scripts in Python (using Selenium and Playwright) to test multi-page UI pipelines, API schemas, and model outputs, reducing manual validation cycles by 40%.",
-    "My toolkit spans Selenium, Playwright, Python, SQL, and database validation (MySQL, MongoDB), backed by a B.E. in Artificial Intelligence & Data Science. I combine software testing precision with the data-crunching power of an analyst to ensure both code reliability and data integrity.",
+    "I'm a Data Analyst and Software Developer based in Thane, Maharashtra, focused on building robust data pipelines, analytics dashboards, scalable backend services, and interactive web applications.",
+    "I recently completed a stint as a Data Validation & Analytics Engineer at Schbang, where I designed and automated data validation workflows and performance analytics for an AI agent product. I wrote 20+ Python automation and data extraction scripts, reducing data verification latency by 40%.",
+    "My toolkit spans Python, SQL, MySQL, MongoDB, Next.js, Pandas, NumPy, and Machine Learning, backed by a B.E. in Artificial Intelligence & Data Science. I combine analytical depth with software engineering rigor to solve complex data and technical problems.",
   ],
 };
 
 export const skills = [
   {
-    id: "testing",
-    title: "Automation & Testing",
+    id: "software-dev",
+    title: "Software Engineering & Development",
     span: "md:col-span-2 md:row-span-2",
     items: [
-      "Locust (load testing)",
-      "Playwright",
-      "Test Automation",
-      "API Testing",
-      "Regression Testing",
-      "Boundary-Value Analysis",
-      "Edge Case Design",
-      "Defect Tracking"
+      "Python Backend",
+      "Next.js & React",
+      "REST APIs",
+      "SQL Database Design",
+      "Automation Scripts",
+      "System Architecture",
+      "Git & CI/CD",
+      "Performance Tuning"
     ],
   },
   {
     id: "languages",
     title: "Languages",
     span: "md:col-span-2",
-    items: ["Python (advanced)", "SQL (MySQL)", "Java (basic)"],
+    items: ["Python (advanced)", "SQL (MySQL, MongoDB)", "JavaScript / TypeScript", "Java (basic)"],
   },
   {
     id: "data-validation",
-    title: "Data Validation & Analytics",
+    title: "Data Analytics & Engineering",
     span: "md:col-span-2",
-    items: ["Pandas (data checks)", "NumPy", "Data Cleaning", "EDA", "Schema Validation", "Regex"],
+    items: ["Pandas (data analysis)", "NumPy", "Data Cleaning", "EDA", "ETL Pipelines", "Schema Validation", "Regex Parsing"],
   },
   {
     id: "bi-ml",
     title: "BI & ML Libraries",
     span: "md:col-span-1",
-    items: ["Power BI", "Tableau", "Scikit-learn"],
+    items: ["Power BI", "Tableau", "Scikit-learn", "Data Visualization"],
   },
   {
     id: "tools",
     title: "Databases & Tools",
     span: "md:col-span-3",
-    items: ["MySQL", "MongoDB", "Git", "VS Code", "Postman", "Jupyter Notebook"],
+    items: ["MySQL", "MongoDB", "PostgreSQL", "Git", "VS Code", "Postman", "Jupyter Notebook", "Vercel"],
   },
 ];
 
 export const experience = [
   {
     id: "schbang",
-    role: "Data Validation Analyst (QA Intern Role)",
+    role: "Data Validation & Analytics Engineer (Intern)",
     company: "Schbang",
     period: "Jan 2026 – May 2026",
     experienceLetterUrl: "https://drive.google.com/file/d/183TKHH9z0xduENHKLZjgJn3dEBMpoUj4/view?usp=drive_link",
     points: [
-      "Designed and executed QA test automation and data validation workflows for “Second Brain” AI product, verifying chat retrieval outputs and multi-page doc pipelines.",
-      "Built and maintained automated performance and functional testing suites using Python, Locust, and Playwright, shrinking execution cycles by 40%.",
-      "Uncovered 50+ system and data defects (null propagation bugs, schema mismatches, and incorrect retrieval behaviors), generating comprehensive bug reports for developer and product squads.",
-      "Created parameterized testing matrices incorporating boundary, negative, and extreme inputs, amplifying total QA test coverage by 30%.",
-      "Queried MongoDB and MySQL databases to perform backend validation, validating exact record-level outputs against live API responses.",
-      "Monitored defect density trends over multiple sprint release cycles, providing clear analytics-driven release quality checkoffs for staging deployment.",
+      "Designed and executed automated data validation workflows and analytics for “Second Brain” AI product, verifying multi-page document pipelines and LLM response accuracy.",
+      "Built performance and load testing frameworks using Python and Locust to analyze response latencies and system throughput under heavy concurrent loads, optimizing pipeline performance by 40%.",
+      "Identified and resolved 50+ data and backend system bottlenecks (null propagation, schema mismatches, and data retrieval shifts), documenting technical specs for engineering teams.",
+      "Created parameterized validation matrices incorporating boundary, edge, and high-volume data inputs, increasing total pipeline verification coverage by 30%.",
+      "Queried MongoDB and MySQL databases to perform deep backend verification and cross-table consistency checks against live API responses.",
+      "Analyzed system reliability metrics across sprint releases, presenting data-driven quality insights and performance benchmarks for staging deployments.",
     ],
   },
 ];
@@ -84,33 +84,22 @@ export const experience = [
 export const projects = [
   {
     id: "ai-product-testing",
-    title: "AI Agent Performance & QA Suite",
-    stack: ["Python", "Locust", "Playwright", "Load Testing"],
+    title: "AI Agent Load Testing & Performance Suite",
+    githubUrl: "https://github.com/Jay-patel15/Locust-setup",
+    stack: ["Python", "Locust", "FastAPI", "Data Analytics", "Load Optimization"],
     description:
-      "Built a modular performance and automation framework for the 'Second Brain' AI product to simulate user loads, verify response latencies, and check UI flows.",
+      "Built a modular performance and analytics framework for the 'Second Brain' AI product to analyze system throughput, evaluate response latencies, and validate schema integrity under load.",
     highlights: [
-      "Reduced manual QA cycles by 40% using Playwright regression scripts",
+      "Reduced data verification cycles by 40% using automated Python scripts",
       "Simulated 500+ concurrent user chat sessions via Locust load scripts",
       "Automated schema verification and database record assertions",
     ],
     metric: { value: "500+", label: "concurrent users" },
   },
   {
-    id: "regex-data-validation",
-    title: "Regex-Based PDF Data Validation Suite",
-    stack: ["Python", "Regex", "Pandas", "Unit Testing"],
-    description:
-      "Designed a parsing and verification pipeline to extract complex tables from unstructured documents and validate schema integrity before importing to MySQL/MongoDB.",
-    highlights: [
-      "100% automated validation accuracy",
-      "Robust assertion scripts catching null values and invalid shapes",
-      "Wrote test suites to cover edge formats and schema shifts",
-    ],
-    metric: { value: "100%", label: "data accuracy achieved" },
-  },
-  {
     id: "predictive-maintenance",
     title: "Predictive Maintenance Using ML",
+    githubUrl: "https://github.com/Jay-patel15/Predictive-maintainance-using-ML",
     stack: ["Python", "EDA", "Scikit-learn", "Visualisation"],
     description:
       "Conducted full EDA on sensor dataset — correlation analysis, distribution plots, and outlier detection — to identify key failure predictors before model training.",
@@ -124,6 +113,7 @@ export const projects = [
   {
     id: "pdf-to-csv",
     title: "PDF to CSV Converter using Regex",
+    githubUrl: "https://github.com/Jay-patel15/PDF_to_CSV_using_Regex",
     stack: ["Python", "Regex", "PDF Parsing", "Pandas"],
     description:
       "College project (NHITM) that extracts tabular data from unstructured PDF documents and converts it into clean CSV files using regex-based pattern matching.",

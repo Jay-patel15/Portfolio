@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Fraunces } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
 const inter = Inter({
@@ -32,34 +33,67 @@ const THEME_INIT_SCRIPT = `(function() {
   } catch (e) {}
 })();`;
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-jay-patel.vercel.app";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://jaypatel.dev"),
-  title: "Jay Patel — SDET & Data Analyst",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Jay Patel — Data Analyst & Software Developer",
+    template: "%s | Jay Patel",
+  },
   description:
-    "Jay Patel is an SDET with the powers of DA, specializing in Python, SQL, Selenium, Playwright, and automated data-validation pipelines.",
+    "Jay Patel is a Data Analyst & Software Developer specializing in Python, SQL, Data Analytics, ETL Pipelines, Machine Learning, and Web Development. Explore projects, experience, and skills.",
   keywords: [
     "Jay Patel",
-    "SDET",
     "Data Analyst",
-    "QA Automation",
-    "Python",
-    "SQL",
-    "Locust",
-    "Playwright",
-    "Data Validation",
+    "Software Developer",
+    "Software Engineer",
+    "Data Scientist",
+    "Python Developer",
+    "SQL Developer",
+    "Full-Stack Developer",
+    "Data Engineering",
+    "ETL Pipelines",
+    "Pandas",
+    "Next.js",
+    "React",
+    "Power BI",
+    "Portfolio",
+    "Jay Patel Portfolio",
+    "Thane Developer",
   ],
-  authors: [{ name: "Jay Patel" }],
+  authors: [{ name: "Jay Patel", url: siteUrl }],
+  creator: "Jay Patel",
+  publisher: "Jay Patel",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "Jay Patel — SDET & Data Analyst",
+    title: "Jay Patel — Data Analyst & Software Developer",
     description:
-      "SDET & QA Automation Engineer specializing in building robust test frameworks and automated data-validation pipelines.",
+      "Data Analyst & Software Developer specializing in data engineering pipelines, analytics dashboards, SQL database architecture, and full-stack web solutions.",
+    url: siteUrl,
+    siteName: "Jay Patel Portfolio",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jay Patel — SDET & Data Analyst",
+    title: "Jay Patel — Data Analyst & Software Developer",
     description:
-      "SDET & QA Automation Engineer specializing in building robust test frameworks and automated data-validation pipelines.",
+      "Data Analyst & Software Developer specializing in data engineering pipelines, analytics dashboards, SQL database architecture, and full-stack web solutions.",
+    creator: "@JayPatel",
   },
 };
 
@@ -80,6 +114,7 @@ export default function RootLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
         />
+        <JsonLd />
       </head>
       <body className="bg-bg font-display text-ink antialiased">
         <a
