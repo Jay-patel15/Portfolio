@@ -25,7 +25,7 @@ export default function ScrollToTop() {
           exit={{ opacity: 0, y: 12 }}
           transition={{ duration: 0.25 }}
           aria-label="Scroll to top"
-          className="fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-void-900/80 text-white/70 backdrop-blur-xl transition-colors hover:border-signal/50 hover:text-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal"
+          className="fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-ink-muted shadow-card transition-colors hover:border-accent/50 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
           <ArrowUp size={18} />
         </motion.button>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download, Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import { profile } from "@/lib/data";
+import ThemeToggle from "./ui/ThemeToggle";
 
 const links = [
   { label: "About", href: "#about" },
@@ -28,16 +29,16 @@ export default function Navbar() {
     <header
       className={`animate-nav-in fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled || menuOpen
-          ? "backdrop-blur-xl bg-void-950/70 border-b border-white/[0.06]"
+          ? "backdrop-blur-xl bg-surface/80 border-b border-line"
           : ""
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <a
           href="#top"
-          className="font-display text-lg font-bold tracking-tight text-white"
+          className="font-serif text-lg font-semibold tracking-tight text-ink"
         >
-          JP<span className="text-signal">.</span>
+          JP<span className="text-accent">.</span>
         </a>
 
         <ul className="hidden items-center gap-8 md:flex">
@@ -45,7 +46,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm font-medium text-white/60 transition-colors hover:text-white"
+                className="text-sm font-medium text-ink-muted transition-colors hover:text-ink"
               >
                 {link.label}
               </a>
@@ -59,7 +60,7 @@ export default function Navbar() {
             target="_blank"
             rel="noreferrer noopener"
             aria-label="GitHub"
-            className="text-white/60 transition-colors hover:text-signal"
+            className="text-ink-muted transition-colors hover:text-accent"
           >
             <Github className="h-4.5 w-4.5" size={18} />
           </a>
@@ -68,23 +69,25 @@ export default function Navbar() {
             target="_blank"
             rel="noreferrer noopener"
             aria-label="LinkedIn"
-            className="text-white/60 transition-colors hover:text-signal"
+            className="text-ink-muted transition-colors hover:text-accent"
           >
             <Linkedin size={18} />
           </a>
           <a
             href={`mailto:${profile.email}`}
             aria-label="Email"
-            className="text-white/60 transition-colors hover:text-signal"
+            className="text-ink-muted transition-colors hover:text-accent"
           >
             <Mail size={18} />
           </a>
+          <span className="h-4 w-px bg-line" aria-hidden="true" />
+          <ThemeToggle />
           <a
             href={profile.resumeUrl}
             target="_blank"
             rel="noreferrer noopener"
             aria-label="Download Resume"
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-2.5 py-1.5 text-xs font-medium text-white/70 transition-colors hover:border-signal/40 hover:text-white sm:px-3.5"
+            className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1.5 text-xs font-medium text-ink-muted transition-colors hover:border-accent/40 hover:text-ink sm:px-3.5"
           >
             <Download size={13} />
             <span className="hidden sm:inline">Resume</span>
@@ -94,7 +97,7 @@ export default function Navbar() {
             onClick={() => setMenuOpen((open) => !open)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="text-white/70 transition-colors hover:text-white md:hidden"
+            className="text-ink-muted transition-colors hover:text-ink md:hidden"
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -108,7 +111,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-white/[0.06] bg-void-950/95 backdrop-blur-xl md:hidden"
+            className="overflow-hidden border-t border-line bg-surface/95 backdrop-blur-xl md:hidden"
           >
             <ul className="flex flex-col gap-1 px-6 py-4">
               {links.map((link) => (
@@ -116,7 +119,7 @@ export default function Navbar() {
                   <a
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="block rounded-lg px-2 py-2.5 text-sm font-medium text-white/70 transition-colors hover:bg-white/[0.04] hover:text-white"
+                    className="block rounded-lg px-2 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:bg-surface-muted hover:text-ink"
                   >
                     {link.label}
                   </a>

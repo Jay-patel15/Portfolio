@@ -13,3 +13,5 @@ yarn-error.log*
 next-env.d.ts
 .claude/
 tsconfig.tsbuildinfo
+/playwright-report/
+/test-results/

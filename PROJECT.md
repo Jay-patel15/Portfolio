@@ -25,16 +25,18 @@ is small enough that a database or headless CMS would be overkill.
   shadows) are extended in `tailwind.config.ts`, not hardcoded hex values
   scattered through components.
 - **Framer Motion** — used for scroll-reveal (`whileInView`), the staggered
-  hero headline animation, and the magnetic-button hover effect. All motion
-  components are client components (`"use client"` at the top of the file).
+  hero headline animation, and the mobile nav / status-banner
+  `AnimatePresence` transitions. All motion components are client
+  components (`"use client"` at the top of the file). `Button` and `Card`
+  are deliberately *not* Framer Motion components — their hover/press
+  feedback is plain CSS (see Design system below).
 - **Supabase** — Postgres + client SDK, used only for the contact form.
   There is no Supabase Auth, no other tables, no server-side Supabase admin
   client. The anon key is safe to expose because RLS restricts it to
   insert-only (see `supabase/schema.sql`).
 - **lucide-react** — icon set, tree-shaken imports (`import { Github } from
   "lucide-react"`).
-- **clsx** — conditional className joining in `MagneticButton.tsx` and
-  `GlowCard.tsx`.
+- **clsx** — conditional className joining in `Button.tsx` and `Card.tsx`.
 
 No test framework, no CI config, no ESLint customization beyond
 `eslint-config-next` — the project is intentionally lightweight.
@@ -178,25 +180,27 @@ section of the page, in the order they're rendered in `app/page.tsx`:
   already reachable without opening the menu.
 - **`Hero.tsx`** (client) — the big headline. Uses Framer Motion
   `variants`/`staggerChildren` to animate each word of "Jay Patel." in on
-  load, with "Patel." colored in the accent (signal) color. The
-  availability badge just reads "Available for work" (no timezone). Each
-  word wrapper has `pb-[0.12em]` added to its `overflow-hidden` clip mask
-  so descenders (e.g. the "y" in "Jay") aren't cut off by the reveal
-  animation. Contains the two CTA buttons (`MagneticButton`) linking to
-  `#projects` and `#contact`.
+  load, with "Patel." colored in the accent color, and collapses to a
+  plain fade (via `useReducedMotion`) when the user has requested reduced
+  motion. The availability badge just reads "Available for work" (no
+  timezone). Each word wrapper has `pb-[0.12em]` added to its
+  `overflow-hidden` clip mask so descenders (e.g. the "y" in "Jay") aren't
+  cut off by the reveal animation. Contains the two CTA buttons (`Button`)
+  linking to `#projects` and `#contact`.
 - **`About.tsx`** (client) — section index `01`, the first numbered
   section after the hero. Just maps `about.paragraphs` from `lib/data.ts`
-  into a single `GlowCard`. To edit the bio copy, edit that array, not
-  this component.
+  into a single `Card`. To edit the bio copy, edit that array, not this
+  component.
 - **`Projects.tsx`** (client) — renders `projects` from `lib/data.ts` as
-  two `GlowCard`s with scroll-triggered fade/slide-in and a hover lift.
+  `Card`s with scroll-triggered fade/slide-in and a hover lift (both
+  skipped under `useReducedMotion`).
 - **`GitHubShowcase.tsx`** (**server** component, no `"use client"`) —
   calls `getPinnedOrRecentRepos` at render time (fetches up to 24 repos)
   and hands them to `RepoGrid` for rendering. Also renders
   `<GithubCalendar />`. If the fetch fails or returns nothing, shows a
   plain-text fallback instead of an empty grid.
 - **`RepoGrid.tsx`** (client) — takes the full repo list and a `pageSize`
-  (defaults to 6) and renders one page of `GlowCard` repo cards at a time,
+  (defaults to 6) and renders one page of `Card` repo cards at a time,
   carousel-style. `page` state + prev/next buttons and dot indicators
   (wraparound via modulo) page through the set; no "view more" button and
   no separate route — everything after the first 6 repos is reached by
@@ -226,7 +230,7 @@ section of the page, in the order they're rendered in `app/page.tsx`:
   resize a skill card, edit its `span` value in `lib/data.ts`, not the
   component.**
 - **`Experience.tsx`** (client) — vertical timeline with a gradient line
-  down the left edge, one `GlowCard` per entry in `experience`. Each entry
+  down the left edge, one `Card` per entry in `experience`. Each entry
   has an `experienceLetterUrl` field in `lib/data.ts` — `null` while the
   role is ongoing, or a Drive share link once it's completed. The card
   only renders the "Experience Letter" button when that field is
@@ -242,18 +246,17 @@ section of the page, in the order they're rendered in `app/page.tsx`:
   the period and company name instead of cleanly under the duration.
 - **`Education.tsx`** (client) — mirrors `Experience.tsx`'s pattern:
   `education` entries render as a vertical timeline (gradient line down
-  the left edge, one `GlowCard` per entry) so new schooling entries can
+  the left edge, one `Card` per entry) so new schooling entries can
   just be appended to `lib/data.ts` and will slot into the timeline
   automatically. Each entry also has a `marksheetUrl` field — `null` hides
   the button, a Drive link shows a "View Result" button beneath the
   passing-year label (same responsive stacked/row header layout, and the
   same reasoning, as the "View Letter" button in `Experience.tsx`). Below
-  the timeline, a
-  separate `GlowCard` lists `certifications` as clickable links
-  (`cert.url`, opens in a new tab) — each has an `ExternalLink` icon and an
-  underline that highlights signal-
-  red on hover. Certification URLs are still placeholders (Credly/Drive)
-  until the user supplies the real ones.
+  the timeline, a separate `Card` lists `certifications` as clickable
+  links (`cert.url`, opens in a new tab) — each has an `ExternalLink` icon
+  and an underline that highlights in the accent color on hover.
+  Certification URLs are still placeholders (Credly/Drive) until the user
+  supplies the real ones.
 - **`Contact.tsx`** (client) — the only component with real form state and
   a side effect. Controlled inputs (`name`, `email`, `message`) →
   `supabase.from("contact_messages").insert(...)` on submit → `status`
@@ -263,17 +266,16 @@ section of the page, in the order they're rendered in `app/page.tsx`:
 
 ### `components/ui/` — shared primitives, no content awareness
 
-- **`MagneticButton.tsx`** (client) — a button/anchor that follows the
-  cursor slightly on hover (spring-animated `x`/`y` transform based on
-  pointer offset from center). Two visual variants: `solid` (white pill,
-  inverts to signal-red on hover) and `ghost` (bordered, transparent).
-  Renders as `<a>` if given an `href` prop, otherwise `<button>`.
-- **`GlowCard.tsx`** (client) — the glassmorphic card shell used
-  everywhere (Projects, GitHub repos, Skills, Experience, Education). On
-  mouse move, sets CSS custom properties `--mx`/`--my` to the cursor
-  position and uses them in a `radial-gradient` background — this is a
-  pure-CSS pointer-follow glow, not a per-frame React re-render, so it's
-  cheap.
+- **`Button.tsx`** — a button/anchor with plain CSS hover (`-translate-y-0.5`)
+  and press (`scale-[0.98]`) feedback, no JS-driven animation. Two visual
+  variants: `solid` (filled `ink`, inverts to `accent` on hover) and
+  `ghost` (bordered, transparent). Renders as `<a>` if given an `href`
+  prop, otherwise `<button>`. Not a client component — it doesn't need to
+  be.
+- **`Card.tsx`** — the flat bordered-surface shell used everywhere
+  (Projects, GitHub repos, Skills, Experience, Education): `bg-surface`,
+  `border-line`, `shadow-card`, deepening to `shadow-card-hover` on hover.
+  Not a client component.
 - **`SectionHeading.tsx`** (client) — the "01 — Section Title" heading
   pattern used at the top of every section. Takes `index`, `title`,
   `description`. Animates in on scroll via `whileInView`.
@@ -296,32 +298,62 @@ codebase).
 
 ## Design system (do not reinvent — read this before styling anything)
 
-Everything lives in `tailwind.config.ts`:
+Light theme by default, with a user-switchable dark mode — clean/editorial:
+generous whitespace, strong type hierarchy, restrained color. No
+neon/glassmorphic/neumorphic effects.
 
-- **Colors** — `void-{950..600}` is the near-black background scale
-  (`void-950` = page background). `signal` (`#ff2b45`, with `dim` and
-  `glow` variants) is the single accent color — used for hover states,
-  the timeline dot, headline index numbers, and card glow. There is no
-  second accent color; don't introduce one.
-- **Typography** — `font-display` (Inter) for all headings/body,
-  `font-mono` (JetBrains Mono) only for small numeric/label text (section
-  index numbers, timestamps). `text-hero-sm/md/lg` are the three
-  responsive hero headline sizes (mobile/tablet/desktop), each with a
-  matching negative letter-spacing baked in — don't override
-  `tracking-*` on the hero heading.
-- **Shadows** — `shadow-neu-dark` / `shadow-neu-dark-inset` give the
-  soft-skeuomorphic depth on pills and inset inputs. `shadow-glass` is the
-  softer shadow under the frosted contact form. `shadow-signal` is a red
-  glow used behind the timeline dot.
-- **`bg-grid-fade`** — the faint grid background behind the hero, combined
-  with a blurred radial `signal` glow positioned absolutely behind the
-  headline.
+- **Theming mechanism** — colors are CSS custom properties (space-separated
+  RGB triples) defined in `app/globals.css` under `:root` (light) and
+  `.dark` (dark), then mapped into Tailwind color tokens in
+  `tailwind.config.ts` via `rgb(var(--x) / <alpha-value>)`. This is why
+  existing opacity-modifier syntax (`text-ink/60`, `bg-surface/[0.08]`)
+  keeps working unchanged in both themes — the whole page re-themes by
+  toggling one `.dark` class on `<html>`, not by doubling every className
+  into `dark:` pairs.
+- **Toggle** — `components/ui/ThemeToggle.tsx` (in the navbar) flips `.dark`
+  on `<html>` and persists the choice to `localStorage("theme")`. An inline
+  `<Script strategy="beforeInteractive">` in `app/layout.tsx` reads that
+  value (falling back to `prefers-color-scheme` on first visit, without
+  writing to `localStorage` until the user actually toggles) and sets the
+  class before hydration, so there's no flash of the wrong theme.
+- **Colors** — semantic tokens, not raw palette names: `bg`/`surface`/
+  `surface-muted` (backgrounds, low → high emphasis), `ink`/`ink-muted`
+  (text), `line`/`line-strong` (borders — `line` for decorative dividers,
+  `line-strong` for interactive UI boundaries like form inputs, per WCAG
+  1.4.11 non-text contrast), `accent` (oxblood `#B3122B` in light mode,
+  coral `#FF6B6B` in dark mode — the single accent color, don't introduce a
+  second one), `success`/`danger` (form status banners). All pairings are
+  verified against WCAG contrast minimums (4.5:1 normal text, 3:1 non-text
+  UI). Never hardcode a hex value or a `white/black`-with-opacity class in
+  a component — add a token to `globals.css`/`tailwind.config.ts` first.
+- **Typography** — three tiers: `font-serif` (Fraunces, via
+  `next/font/google`) for all headings (`h1`/`h2`/`h3`), `font-display`
+  (Inter) for body/UI text, `font-mono` (JetBrains Mono) only for small
+  numeric/label text (section index numbers, timestamps, kickers).
+  `text-hero-sm/md/lg` are still the three responsive hero headline sizes
+  — don't override `tracking-*` on the hero heading.
+- **Shadows** — `shadow-card` / `shadow-card-hover` is the one flat
+  elevation pair, used by `Card`, the contact form, and `ScrollToTop`. No
+  glow/neumorphic shadows exist anymore — don't reintroduce one.
+- **Primitives** — `Button` and `Card` (see `components/ui/`) replaced
+  `MagneticButton`/`GlowCard`. Both had JS-driven pointer-tracking effects
+  (magnetic cursor-follow, radial-gradient mouse glow) that were dropped
+  entirely, not just restyled — that motion read as "bold/SaaS," which is
+  in tension with the clean/editorial brief, and cutting the JS was a net
+  simplification. Their prop APIs are unchanged from the originals.
+- **Reduced motion** — a blanket `@media (prefers-reduced-motion: reduce)`
+  rule in `globals.css` neutralizes plain-CSS transitions/animations
+  globally. Components with *meaningful* Framer Motion motion
+  (`Hero.tsx`'s word-stagger, `SectionHeading.tsx`'s slide-in,
+  `Projects.tsx`'s hover lift) additionally call `useReducedMotion()` to
+  collapse to a fade or skip the effect outright.
 
 Pattern to follow for any new section: `SectionHeading` at the top with the
-next sequential index number, content in one or more `GlowCard`s, entrance
-animation via `whileInView` + `viewport={{ once: true, margin: "-Npx" }}`,
-color accents restricted to `signal`/white/white-with-opacity. Don't add a
-new shadow, font, or color without adding it to `tailwind.config.ts` first.
+next sequential index number, content in one or more `Card`s, entrance
+animation via `whileInView` + `viewport={{ once: true, margin: "-Npx" }}`
+(gated by `useReducedMotion()` if the motion is more than a fade), color
+accents restricted to the semantic tokens above. Don't add a new shadow,
+font, or color without adding it to `tailwind.config.ts`/`globals.css` first.
 
 ## Known constraints / things to not "fix"
 

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { skills } from "@/lib/data";
 import SectionHeading from "./ui/SectionHeading";
-import GlowCard from "./ui/GlowCard";
+import Card from "./ui/Card";
 
 export default function Skills() {
   return (
@@ -12,7 +12,7 @@ export default function Skills() {
         <SectionHeading
           index="04"
           title="Skills & Toolkit"
-          description="The languages, frameworks, and tools I use to turn raw data into decisions."
+          description="The languages, frameworks, and tools I use to build automated validation frameworks and analyze data."
         />
 
         <div className="grid gap-5 md:grid-cols-4">
@@ -25,21 +25,21 @@ export default function Skills() {
               transition={{ duration: 0.5, delay: i * 0.06 }}
               className={group.span}
             >
-              <GlowCard className="h-full">
-                <h3 className="font-display text-base font-semibold text-white">
+              <Card className="h-full">
+                <h3 className="font-serif text-base font-semibold text-ink">
                   {group.title}
                 </h3>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className="rounded-full border border-white/[0.08] bg-void-900/60 px-3 py-1.5 text-xs font-medium text-white/60 shadow-neu-dark-inset transition-colors hover:border-signal/40 hover:text-white"
+                      className="rounded-full border border-line bg-surface-muted px-3 py-1.5 text-xs font-medium text-ink-muted transition-colors hover:border-accent/40 hover:text-ink"
                     >
                       {item}
                     </li>
                   ))}
                 </ul>
-              </GlowCard>
+              </Card>
             </motion.div>
           ))}
         </div>
